@@ -1,5 +1,9 @@
 function checkForShip(player,location){
 
+  if(!(player && location)){
+    throw new Error('Bad arguments provided')
+  }
+
   let ship, shipIsPresent
 
   for(let i=0;i<player.ships.length;i++){
@@ -22,6 +26,10 @@ function damageShip(ship,location){
 
 
 function fireShip(player,location){
+  if(!(player && location)){
+    throw new Error('Bad arguments provided')
+  }
+
   const ship = checkForShip(player,location)
 
   if(ship){

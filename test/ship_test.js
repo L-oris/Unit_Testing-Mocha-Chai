@@ -52,6 +52,11 @@ describe('checkForShip()',function(){
     assert.isFalse(checkForShip(player,[9,9]))
   })
 
+  it(`should throw an error if incorrect arguments are passed to it`, function(){
+    const handler = ()=>checkForShip([2,3])
+    assert.throws(handler, Error, 'Bad arguments provided')
+  })
+
 })
 
 
@@ -102,6 +107,11 @@ describe('fireShip()',function(){
 
     fireShip(player,[9,9])
     assert.isEmpty(player.ships[0].damage)
+  })
+
+  it(`should throw an error if incorrect arguments are passed to it`, function(){
+    const handler = ()=>fireShip(player)
+    assert.throws(handler, Error, 'Bad arguments provided')
   })
 
 })
