@@ -1,13 +1,15 @@
 function checkForShip(player,location){
 
-  let shipIsPresent
+  let ship, shipIsPresent
 
   for(let i=0;i<player.ships.length;i++){
-    shipIsPresent = player.ships[i].locations.filter(actualCoordinate=>{
-      return (actualCoordinate[0]===location[0] && actualCoordinate[1]===location[1])
-    })
 
-    if(shipIsPresent.length>0) return true
+    ship = player.ships[i]
+    shipIsPresent = ship.locations.filter(actualCoordinate=>{
+      return (actualCoordinate[0]===location[0] && actualCoordinate[1]===location[1])
+    })[0]
+
+    if(shipIsPresent) return ship
   }
 
   return false
@@ -19,7 +21,17 @@ function damageShip(ship,location){
 }
 
 
+function fireShip(player,location){
+  const ship = checkForShip(player,location)
+
+  if(ship){
+    damageShip(ship,location)
+  }
+}
+
+
 module.exports = {
   checkForShip,
-  damageShip
+  damageShip,
+  fireShip
 }

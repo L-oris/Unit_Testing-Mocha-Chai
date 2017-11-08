@@ -24,12 +24,12 @@ describe('checkForShip()',function(){
     const player = {
       ships: [
         {
-          locations: [[0,0]]
+          locations: [[0,0],[0,1]]
         }
       ]
     }
 
-    assert.isTrue(checkForShip(player,[0,0]))
+    assert.deepEqual(checkForShip(player,[0,0]), player.ships[0])
   })
 
 
@@ -43,8 +43,8 @@ describe('checkForShip()',function(){
     }
 
     assert.isFalse(checkForShip(player,[2,2]))
-    assert.isTrue(checkForShip(player,[2,0]))
-    assert.isTrue(checkForShip(player,[1,0]))
+    assert.deepEqual(checkForShip(player,[2,0]), player.ships[0])
+    assert.deepEqual(checkForShip(player,[1,0]), player.ships[0])
   })
 
 
@@ -64,9 +64,9 @@ describe('checkForShip()',function(){
     }
 
     assert.isFalse(checkForShip(player,[2,2]))
-    assert.isTrue(checkForShip(player,[2,0]))
-    assert.isTrue(checkForShip(player,[5,3]))
-    assert.isTrue(checkForShip(player,[7,1]))
+    assert.deepEqual(checkForShip(player,[2,0]), player.ships[0])
+    assert.deepEqual(checkForShip(player,[5,3]), player.ships[1])
+    assert.deepEqual(checkForShip(player,[7,1]), player.ships[2])
     assert.isFalse(checkForShip(player,[9,9]))
   })
 
@@ -87,6 +87,42 @@ describe('damageShip()',function(){
 
     assert.isNotEmpty(ship.damage)
     assert.deepEqual(ship.damage[0],[0,0])
+  })
+
+})
+
+
+
+describe('fireShip()',function(){
+
+  const {fireShip} = require('../game_logic/ship_methods')
+
+  it(`should record damage on given player ship at given coordinate`, function(){
+    const player = {
+      ships: [
+        {
+          locations: [[0,0]],
+          damage: []
+        }
+      ]
+    }
+    fireShip(player,[0,0])
+
+    assert.deepEqual(player.ships[0].damage[0], [0,0])
+  })
+
+  it(`should NOT record damage if there's no ship at given coordinates`, function(){
+    const player = {
+      ships: [
+        {
+          locations: [[0,0]],
+          damage: []
+        }
+      ]
+    }
+    fireShip(player,[9,9])
+
+    assert.isEmpty(player.ships[0].damage)
   })
 
 })
