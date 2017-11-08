@@ -13,4 +13,13 @@ function checkForShip(player,location){
   return false
 }
 
-module.exports.checkForShip = checkForShip
+
+function damageShip(ship,location){
+  ship.damage.push(location)
+}
+
+
+module.exports = {
+  checkForShip,
+  damageShip
+}

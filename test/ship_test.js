@@ -6,7 +6,6 @@ describe('checkForShip()',function(){
   //import 'checkForShip' function to test
   const {checkForShip} = require('../game_logic/ship_methods')
 
-
   it(`should report no ship at a given player's coordinate`, function(){
     //create dump obj player, assuming has a ship at [0,0]
     const player = {
@@ -69,6 +68,25 @@ describe('checkForShip()',function(){
     assert.isTrue(checkForShip(player,[5,3]))
     assert.isTrue(checkForShip(player,[7,1]))
     assert.isFalse(checkForShip(player,[9,9]))
+  })
+
+})
+
+
+
+describe('damageShip()',function(){
+
+  const {damageShip} = require('../game_logic/ship_methods')
+
+  it(`should register damage on a given ship at a given location`, function(){
+    const ship = {
+      locations: [[0,0]],
+      damage: []
+    }
+    damageShip(ship, [0,0])
+
+    assert.isNotEmpty(ship.damage)
+    assert.deepEqual(ship.damage[0],[0,0])
   })
 
 })
